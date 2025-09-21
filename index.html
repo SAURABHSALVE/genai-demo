@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI for Indian Craftsmanship - Interactive Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Styles for a Rich, Thematic Feel */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a1a1a;
+            color: #f0e6d8;
+            background-image:
+                radial-gradient(at 10% 10%, hsla(28, 60%, 40%, 0.2) 0px, transparent 50%),
+                radial-gradient(at 90% 20%, hsla(210, 50%, 40%, 0.2) 0px, transparent 50%),
+                radial-gradient(at 50% 80%, hsla(340, 50%, 45%, 0.2) 0px, transparent 50%),
+                radial-gradient(at 10% 90%, hsla(120, 40%, 35%, 0.15) 0px, transparent 50%);
+        }
+
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-teko { font-family: 'Teko', sans-serif; }
+
+        .feature-card {
+            background-color: rgba(40, 38, 44, 0.6);
+            border: 1px solid rgba(240, 230, 216, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 215, 0, 0.2);
+            border-color: rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-primary {
+            background: linear-gradient(145deg, #f0b90b, #c88f0a);
+            color: #1a1a1a;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(240, 185, 11, 0.2);
+            border: 1px solid #f0b90b;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(240, 185, 11, 0.4);
+        }
+        
+        /* Animation for generated content */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Specific Demo element styling */
+        .heritage-chain-block {
+            border-left: 2px solid #f0b90b;
+            padding-left: 1rem;
+            margin-left: 0.5rem;
+            position: relative;
+        }
+        .heritage-chain-block::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #f0b90b;
+            border: 2px solid #1a1a1a;
+        }
+        
+        .phone-mockup {
+            background: #2a2a2a;
+            border-radius: 30px;
+            padding: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 2px solid #444;
+            width: 100%;
+            max-width: 380px; /* Max width for the phone */
+        }
+        .phone-screen {
+            background: #111;
+            border-radius: 20px;
+            padding: 16px;
+            color: white;
+            min-height: 200px;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Header Section -->
+    <header class="text-center py-12 md:py-16 px-4">
+        <div class="inline-block p-4 bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-orange-400 to-amber-300">
+             <h1 class="font-teko text-6xl sm:text-7xl md:text-9xl tracking-wider uppercase">AI किमया</h1>
+        </div>
+        <h2 class="font-playfair text-xl sm:text-2xl md:text-4xl mt-2 mb-4 text-amber-100">Experience the Future of Indian Craftsmanship</h2>
+        <p class="max-w-3xl mx-auto text-base sm:text-lg text-slate-300">
+            An interactive showcase of eight groundbreaking AI concepts designed to empower artisans, enrich heritage, and create magical connections between crafts and people.
+        </p>
+    </header>
+
+    <!-- Features Grid -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+
+            <!-- 1. Craft Echoes -->
+            <div class="feature-card rounded-2xl p-6 md:p-8" id="craft-echoes">
+                <h3 class="font-playfair text-2xl sm:text-3xl font-bold text-amber-300 mb-2">1. Craft Echoes</h3>
+                <p class="text-slate-300 mb-6">The craft's digital soul that lives forever, generating new stories from the owner's life and recording its history on a secure Heritage Chain.</p>
+                <div class="bg-black/20 p-4 rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1619665519343-b911b38f87b8?q=80&w=1974&auto=format&fit=crop" alt="Hand-carved wooden elephant" class="rounded-lg mb-4 w-full h-48 object-cover">
+                    <div id="echo-story" class="mb-4 p-3 bg-slate-800/50 rounded-md text-amber-100 italic">"I am a wooden elephant, carved from ancient forests. My journey begins..."</div>
+                    <div id="heritage-chain" class="space-y-3 mb-4">
+                        <div class="heritage-chain-block">
+                            <p class="font-semibold text-sm">Carved by Artisan Meera</p>
+                            <p class="text-xs text-slate-400">Jaipur, 2024</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input type="text" id="life-event-input" placeholder="Add a life event..." class="flex-grow bg-slate-700 border border-slate-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400 text-white">
+                        <button onclick="addLifeEvent()" class="btn-primary px-4 py-2 rounded-md">Create Memory</button>
+                    </div>
+                     <div class="mt-4 pt-4 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-3 text-center">
+                        <div class="bg-slate-800/50 p-3 rounded-lg">
+                            <h4 class="font-semibold text-sm text-amber-200">Secured by Blockchain</h4>
+                            <p class="text-xs text-slate-400">A permanent, trusted history.</p>
+                        </div>
+                        <div class="bg-slate-800/50 p-3 rounded-lg">
+                            <h4 class="font-semibold text-sm text-amber-200">View in Your Home (AR)</h4>
+                            <p class="text-xs text-slate-400">Brings the craft to life.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2. Fate Weaving -->
+            <div class="feature-card rounded-2xl p-6 md:p-8" id="fate-weaving">
+                <h3 class="font-playfair text-2xl sm:text-3xl font-bold text-amber-300 mb-2">2. Fate Weaving</h3>
+                <p class="text-slate-300 mb-6">A digital astrologer that matches crafts to buyers using Vedic principles and data, creating poetic prophecies for a magical shopping experience.</p>
+                <div class="bg-black/20 p-4 rounded-lg flex flex-col items-center gap-6">
+                    <img src="https://images.unsplash.com/photo-1611598468355-4cc56b5b5b5b?q=80&w=2070&auto=format&fit=crop" alt="Silver ring with intricate design" class="rounded-full w-28 h-28 sm:w-32 sm:h-32 object-cover border-4 border-amber-500/50">
+                    <div class="flex-1 text-center w-full">
+                        <button onclick="weaveFate()" class="btn-primary px-6 py-3 rounded-lg mb-4 text-lg w-full sm:w-auto">Weave Their Fate</button>
+                        <div id="fate-prophecy" class="p-3 bg-slate-800/50 rounded-md text-amber-100 min-h-[80px]">Your prophecy awaits...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Infinity Scaling -->
+            <div class="feature-card rounded-2xl p-6 md:p-8" id="infinity-scaling">
+                <h3 class="font-playfair text-2xl sm:text-3xl font-bold text-amber-300 mb-2">3. Infinity Scaling</h3>
+                <p class="text-slate-300 mb-6">Unlocks the universe in a design, fractally expanding it from micro to macro scales, with a unique story at each level and automated licensing.</p>
+                <div class="bg-black/20 p-4 rounded-lg">
+                    <div class="relative mb-4">
+                         <img id="fractal-image" src="https://images.unsplash.com/photo-1621005018395-5807a2c7b5b7?q=80&w=1964&auto=format&fit=crop" alt="Madhubani painting - wearable scale" class="rounded-lg w-full h-56 sm:h-64 object-cover transition-all duration-500">
+                    </div>
+                    <p id="fractal-story" class="text-center mb-4 text-amber-100 italic">"A wearable story of tradition."</p>
+                    <div class="flex justify-center gap-2 flex-wrap">
+                        <button onclick="changeScale('micro')" class="btn-primary px-3 py-1 rounded-full text-sm">Micro</button>
+                        <button onclick="changeScale('wearable')" class="btn-primary px-3 py-1 rounded-full text-sm">Wearable</button>
+                        <button onclick="changeScale('architectural')" class="btn-primary px-3 py-1 rounded-full text-sm">Architectural</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Mela Portal Summoner -->
+            <div class="feature-card rounded-2xl p-6 md:p-8" id="mela-portal">
+                <h3 class="font-playfair text-2xl sm:text-3xl font-bold text-amber-300 mb-2">4. Mela Portal Summoner</h3>
+                <p class="text-slate-300 mb-6">AI creates instant virtual "mela" (fair) portals from a photo, connecting buyers to cultural experiences via SMS or WhatsApp.</p>
+                 <div class="bg-black/20 p-4 rounded-lg flex flex-col items-center gap-6">
+                    <img src="https://images.unsplash.com/photo-1593957599738-0a038a168a5e?q=80&w=1974&auto=format&fit=crop" alt="Rajasthan pottery" class="rounded-lg w-32 h-32 sm:w-40 sm:h-40 object-cover">
+                    <div class="flex-1 text-center">
+                        <button onclick="summonPortal()" class="btn-primary px-6 py-3 rounded-lg">Summon Mela Portal</button>
+                         <div id="portal-status" class="mt-4 p-2 text-sm text-center"></div>
+                    </div>
+                </div>
+            </div>
+            
+             <!-- 5. Village Vision Harvester -->
+            <div class="feature-card rounded-2xl p-6 md:p-8" id="dream-harvester">
+                <h3 class="font-playfair text-2xl sm:text-3xl font-bold text-amber-300 mb-2">5. Village Vision Harvester</h3>
+                <p class="text-slate-300 mb-6">AI harvests "village dreams" from patterns, suggesting innovative customs and texting buyers with subconscious design previews.</p>
+                <div class="bg-black/20 p-4 rounded-lg">
+                    <div class="relative mb-4">
+                         <img src="https://images.unsplash.com/photo-1620722286241-c8455358052a?q=80&w=1974&auto=format&fit=crop" alt="Khadi cloth" class="rounded-lg w-full h-56 object-cover">
+                         <img id="dream-overlay" src="https://i.ibb.co/L5hY5Fk/peacock-overlay.png" alt="Peacock dream overlay" class="absolute top-0 left-0 w-full h-full object-contain opacity-0 transition-opacity duration-1000">
+                    </div>
+                     <button onclick="harvestVision()" class="btn-primary w-full py-2 rounded-lg">Harvest Vision</button>
+                     <div id="vision-status" class="mt-4 p-2 text-sm text-center"></div>
+                </div>
+            </div>
+
+            <!-- 6. Mandala Expander -->
+            <div class="feature-card rounded-2xl p-6 md:p-8" id="mandala-expander">
+                <h3 class="font-playfair text-2xl sm:text-3xl font-bold text-amber-300 mb-2">6. Mandala Expander</h3>
+                <p class="text-slate-300 mb-6">Fractally expands patterns from tiny to vast, like a digital mandala, auto-matching sizes and variants to diverse buyer needs.</p>
+                <div class="bg-black/20 p-4 rounded-lg">
+                     <img id="mandala-image" src="https://images.unsplash.com/photo-1619120153922-38d7c4939b16?q=80&w=1974&auto=format&fit=crop" alt="Mandala Earring" class="rounded-lg w-full h-56 object-contain mb-4 transition-all duration-500">
+                    <div class="flex justify-center gap-2 flex-wrap">
+                        <button onclick="expandMandala('earring')" class="btn-primary px-3 py-1 rounded-full text-sm">Earring</button>
+                        <button onclick="expandMandala('pendant')" class="btn-primary px-3 py-1 rounded-full text-sm">Pendant</button>
+                        <button onclick="expandMandala('mural')" class="btn-primary px-3 py-1 rounded-full text-sm">Mural</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 7. Sanskriti Imprinter -->
+            <div class="feature-card rounded-2xl p-6 md:p-8" id="sanskriti-imprinter">
+                <h3 class="font-playfair text-2xl sm:text-3xl font-bold text-amber-300 mb-2">7. Sanskriti Imprinter</h3>
+                <p class="text-slate-300 mb-6">Imprints cultural memories onto crafts, creating emotional bonds and sending alerts on significant dates to drive engagement.</p>
+                <div class="bg-black/20 p-4 rounded-lg text-center">
+                    <img src="https://images.unsplash.com/photo-1618331305011-21525a1768b7?q=80&w=2070&auto=format&fit=crop" alt="Phulkari embroidery" class="rounded-lg w-full h-48 object-cover mb-4">
+                    <button id="imprint-btn" onclick="imprintMemory()" class="btn-primary px-5 py-2 rounded-lg w-full sm:w-auto">Imprint Wedding Memory</button>
+                    <div id="imprint-status" class="mt-4 p-2 text-sm"></div>
+                </div>
+            </div>
+            
+            <!-- 8. Swadeshi Transmuter -->
+            <div class="feature-card rounded-2xl p-6 md:p-8" id="swadeshi-transmuter">
+                <h3 class="font-playfair text-2xl sm:text-3xl font-bold text-amber-300 mb-2">8. Swadeshi Transmuter</h3>
+                <p class="text-slate-300 mb-6">AI transmutes senses from a photo, turning the aroma of a spice box into haptic feedback on a phone for a unique sensory appeal.</p>
+                <div class="bg-black/20 p-4 rounded-lg flex flex-col items-center gap-6">
+                     <img src="https://images.unsplash.com/photo-1598514982901-ae6659f75f7a?q=80&w=1976&auto=format&fit=crop" alt="Tamil spice box" class="rounded-lg w-32 h-32 sm:w-40 sm:h-40 object-cover">
+                    <div class="flex-1 text-center">
+                         <button onclick="transmuteSenses()" class="btn-primary px-6 py-3 rounded-lg">Transmute Senses</button>
+                         <div id="transmute-status" class="mt-4 p-2 text-sm text-center"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    
+    <!-- Mela Portal Modal -->
+    <div id="mela-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
+        <div class="phone-mockup">
+            <div class="phone-screen flex flex-col h-[600px] max-h-[90vh]">
+                <div class="text-center border-b border-gray-600 pb-2 mb-4">
+                    <p class="font-bold">Jaipur Mela Portal</p>
+                </div>
+                <div class="flex-grow space-y-3 overflow-y-auto">
+                    <div class="bg-blue-600 p-2 rounded-lg self-end max-w-[80%] ml-auto text-white">
+                        <p class="text-sm">Enter mela for this saree? Reply YES</p>
+                    </div>
+                    <div class="bg-gray-700 p-2 rounded-lg self-start max-w-[80%]">
+                        <p class="text-sm font-bold">Welcome!</p>
+                        <p class="text-sm">Here's an enhanced look at the craft...</p>
+                        <img src="https://images.unsplash.com/photo-1593957599738-0a038a168a5e?q=80&w=1974&auto=format&fit=crop" class="rounded-md my-2">
+                         <p class="text-sm italic">"Listen to its story..."</p>
+                         <audio controls class="w-full h-8 mt-1">
+                             <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                             Your browser does not support the audio element.
+                         </audio>
+                    </div>
+                </div>
+                 <button onclick="document.getElementById('mela-modal').classList.add('hidden')" class="mt-4 bg-red-600 text-white w-full py-2 rounded-lg flex-shrink-0">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="text-center py-10 mt-12 border-t border-white/10">
+        <p class="text-slate-400">&copy; 2025 AI किमया Initiative. A new era for artisans.</p>
+    </footer>
+
+    <script>
+        // 1. Craft Echoes
+        function addLifeEvent() {
+            const input = document.getElementById('life-event-input');
+            const eventText = input.value.trim();
+            if (!eventText) return;
+
+            const storyEl = document.getElementById('echo-story');
+            const heritageChainEl = document.getElementById('heritage-chain');
+
+            let newStory = '';
+            if (eventText.toLowerCase().includes('mountain')) {
+                newStory = `"Today, I remembered the cool mountain air where my wooden ancestors once stood."`;
+            } else if (eventText.toLowerCase().includes('beach') || eventText.toLowerCase().includes('ocean')) {
+                newStory = `"The sound of the waves reminded me of the coastal village where the artisan first dreamed of me."`;
+            } else {
+                newStory = `"A new memory was made today: a day of celebration filled with laughter and light."`;
+            }
+
+            const newBlock = document.createElement('div');
+            newBlock.className = 'heritage-chain-block fade-in';
+            newBlock.innerHTML = `
+                <p class="font-semibold text-sm">New Memory Added</p>
+                <p class="text-xs text-slate-400">${eventText}</p>
+            `;
+            
+            storyEl.innerHTML = newStory;
+            storyEl.classList.remove('fade-in');
+            void storyEl.offsetWidth; // Trigger reflow
+            storyEl.classList.add('fade-in');
+            
+            heritageChainEl.appendChild(newBlock);
+            input.value = '';
+        }
+
+        // 2. Destiny Matching
+        function weaveFate() {
+            const prophecyEl = document.getElementById('fate-prophecy');
+            prophecyEl.innerHTML = 'Weaving the threads of destiny...';
+            setTimeout(() => {
+                prophecyEl.innerHTML = `<span class="fade-in">"For a soul with a Leo rising, this ring is fated to be worn at a celebration that will mark a new career chapter in early 2026."</span>`;
+            }, 1500);
+        }
+
+        // 3. Zoomable Designs
+        const scales = {
+            micro: {
+                img: 'https://i.ibb.co/3k5hM4r/micro.png',
+                story: 'At a microscopic level, discover the story of the natural dyes used to create these vibrant colors.'
+            },
+            wearable: {
+                img: 'https://images.unsplash.com/photo-1621005018395-5807a2c7b5b7?q=80&w=1964&auto=format&fit=crop',
+                story: 'At the wearable scale, this is a beautiful piece of art telling the artisan\'s personal story.'
+            },
+            architectural: {
+                img: 'https://i.ibb.co/L5tN7gR/architectural.png',
+                story: 'Zoom out to an architectural scale, and the pattern becomes a stunning blueprint for a community temple wall.'
+            }
+        };
+        function changeScale(scale) {
+            document.getElementById('fractal-image').src = scales[scale].img;
+            const storyEl = document.getElementById('fractal-story');
+            storyEl.innerHTML = scales[scale].story;
+            storyEl.classList.remove('fade-in');
+            void storyEl.offsetWidth;
+            storyEl.classList.add('fade-in');
+        }
+
+        // 4. Virtual Fair
+        function summonPortal() {
+            const statusEl = document.getElementById('portal-status');
+            statusEl.textContent = 'Summoning portal...';
+            setTimeout(() => {
+                statusEl.textContent = 'Portal link sent! Opening...';
+                document.getElementById('mela-modal').classList.remove('hidden');
+            }, 1500);
+        }
+
+        // 5. AI Design Ideas
+        function harvestVision() {
+            const overlay = document.getElementById('dream-overlay');
+            const statusEl = document.getElementById('vision-status');
+            statusEl.innerHTML = 'Harvesting subconscious patterns...';
+            overlay.classList.add('opacity-70');
+            setTimeout(() => {
+                statusEl.innerHTML = `
+                    <div class="fade-in bg-slate-800/50 p-3 rounded-md">
+                        <p class="font-bold">Vision Harvested!</p>
+                        <p>A peacock motif is envisioned. Preview sent to potential buyers.</p>
+                    </div>`;
+            }, 2000);
+             setTimeout(() => {
+                overlay.classList.remove('opacity-70');
+                statusEl.innerHTML = '';
+            }, 6000);
+        }
+        
+        // 6. Pattern Scaler
+        const mandalaScales = {
+            earring: 'https://images.unsplash.com/photo-1619120153922-38d7c4939b16?q=80&w=1974&auto=format&fit=crop',
+            pendant: 'https://i.ibb.co/7YyW6hV/pendant.png',
+            mural: 'https://i.ibb.co/N1W0rZy/mural.png',
+        }
+        function expandMandala(scale) {
+            document.getElementById('mandala-image').src = mandalaScales[scale];
+        }
+
+        // 7. Memory Keeper
+        function imprintMemory() {
+            const statusEl = document.getElementById('imprint-status');
+            const btn = document.getElementById('imprint-btn');
+            statusEl.innerHTML = 'Imprinting memory onto the craft\'s digital soul...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                 statusEl.innerHTML = `<div class="fade-in bg-green-900/50 p-3 rounded-md border border-green-500">
+                    <p class="font-bold text-green-300">Memory Imprinted!</p>
+                    <p>"Joyous Wedding, 2024" is now part of its story.</p>
+                 </div>`;
+                 btn.textContent = "Memory Imprinted";
+            }, 2000);
+            
+            setTimeout(() => {
+                statusEl.innerHTML = `<div class="fade-in bg-blue-900/50 p-3 rounded-md border border-blue-400">
+                    <p class="font-bold text-blue-300">One Year Later...</p>
+                    <p>Anniversary Alert sent to owner, reminding them of this special day.</p>
+                 </div>`;
+            }, 5000);
+        }
+
+        // 8. Feel the Craft
+        function transmuteSenses() {
+            const statusEl = document.getElementById('transmute-status');
+            statusEl.innerHTML = 'Transmuting visual data to sensory feedback...';
+            
+            // Haptic feedback for supported devices
+            if (window.navigator.vibrate) {
+                window.navigator.vibrate([100, 50, 100, 50, 200]); // Buzz pattern
+            }
+
+            setTimeout(() => {
+                 statusEl.innerHTML = `<div class="fade-in bg-purple-900/50 p-3 rounded-md border border-purple-500">
+                    <p class="font-bold text-purple-300">Senses Transmuted!</p>
+                    <p>Felt the 'zing' of ginger? A haptic preview has been sent.</p>
+                 </div>`;
+            }, 1500);
+        }
+
+    </script>
+</body>
+</html>
+
+
